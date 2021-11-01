@@ -1,5 +1,12 @@
-import express, { Application, Request, Response } from 'express';
+import express, {
+  Application,
+  Request,
+  Response,
+  ErrorRequestHandler,
+} from 'express';
 import path from 'path';
+import userRouter from './routes/userRouter';
+import messageRouter from './routes/messageRouter';
 
 const app: Application = express();
 
@@ -12,13 +19,28 @@ app.get('/', (req: Request, res: Response) => {
   res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
 });
 
-app.get('/api', (req: Request, res: Response) => {
-  res.status(200).json('hello world');
-});
+app.use('/api/user', userRouter);
+app.use('/api/message', messageRouter);
 
 app.get('*', (req: Request, res: Response) => {
   res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
 });
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  const defaultErr = {
+    log: 'unknown middleware error',
+    status: 400,
+    message: { err: 'error occurred' },
+  };
+  const errorObj = {
+    ...defaultErr,
+    log: err.log,
+    message: { err: err.message },
+  };
+  return res.status(errorObj.status).json(errorObj.message);
+};
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
