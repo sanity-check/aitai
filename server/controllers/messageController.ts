@@ -24,6 +24,14 @@ const messageController = (() => {
     }
   };
 
+  const getEmotions = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    return next();
+  };
+
   const createMessage = async (
     req: Request,
     res: Response,
@@ -76,6 +84,7 @@ const messageController = (() => {
     createMessage,
     getMessages,
     deleteMessage,
+    getEmotions,
   };
 })();
 
