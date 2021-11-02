@@ -12,6 +12,7 @@ router.get(
 
 router.post(
   '/',
+  messageController.getEmotions,
   messageController.createMessage,
   messageController.getMessages,
   (req: Request, res: Response) => {

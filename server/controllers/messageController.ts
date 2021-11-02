@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { pool } from '../db/db_connect';
+import * as language from '@google-cloud/language';
+
+type document = {
+  content: string;
+  type: 'PLAIN_TEXT';
+};
 
 const messageController = (() => {
   const getMessages = async (
@@ -29,7 +35,37 @@ const messageController = (() => {
     res: Response,
     next: NextFunction
   ) => {
-    return next();
+
+    const { userID, message } = req.body;
+
+    if (!userID || !message) {
+      return next({
+        log: 'no userID or message on req.body in getEmotions middleware'
+      });
+    }
+
+    // Detects the sentiment of the text
+    try {
+      const client = new language.LanguageServiceClient();
+      const document: document = {
+        content: message,
+        type: 'PLAIN_TEXT',
+      };
+      const [result] = await client.analyzeSentiment({ document: document });
+      const sentiment = result?.documentSentiment;
+      console.log(`Text: ${req.body.message}`);
+      console.log(`Sentiment score: ${sentiment?.score}`);
+      console.log(`Sentiment magnitude: ${sentiment?.magnitude}`);
+      res.locals.userID = userID;
+      res.locals.message = message;
+      res.locals.emotionalRating = sentiment?.score?.toFixed(2);
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error in get emotions middleware',
+        message: error,
+      });
+    }
   };
 
   const createMessage = async (
@@ -37,13 +73,13 @@ const messageController = (() => {
     res: Response,
     next: NextFunction
   ) => {
-    const { userID, message } = req.body;
+    const { userID, message, emotionalRating } = res.locals;
 
-    const emotionalRating = res.locals.emotionalRating
-      ? res.locals.emotionalRating
-      : req.body.emotionalRating;
 
     try {
+
+      console.log('userID', userID, 'message', message, 'emotions', emotionalRating);
+
       const sqlQuery = `INSERT INTO messages (user_id, content, emotional_rating, created_at) VALUES (${userID}, '${message}', ${emotionalRating}, '${new Date().toISOString()}')`;
 
       await pool.query(sqlQuery);
