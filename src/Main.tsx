@@ -6,10 +6,13 @@ import EmptyCard from './EmptyCard';
 import * as types from './types';
 const Main = (
   props: types.responseObj & {
+    username: string;
     isLoggedIn: boolean;
     setIsLoggedIn: (arg: boolean) => void;
+    userId: number | null;
   }
 ) => {
+  console.log(props.userId);
   const { id } = useParams();
   if (Number(id) > 0) {
     return (
@@ -18,9 +21,9 @@ const Main = (
         <SideBar {...props} />
         <MainCard
           messageId={id}
-          userId={props.testObj.userId}
-          content={props.testObj.messages[id].content}
-          sentiment={props.testObj.messages[id].sentiment}
+          userId={props.userId}
+          content={props.data.messages[id].content}
+          sentiment={props.data.messages[id].sentiment}
         />
       </div>
     );
@@ -29,7 +32,7 @@ const Main = (
       <div>
         <NavBar {...props} />
         <SideBar {...props} />
-        <EmptyCard userId={props.testObj.userId} />
+        <EmptyCard userId={props.userId} />
       </div>
     );
   }

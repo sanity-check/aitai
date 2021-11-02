@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
 import Main from './Main';
@@ -7,8 +7,17 @@ import * as types from './types';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
   const [username, setUsername] = React.useState<string>('');
-  const [userId, setUserId] = React.useState<string>('');
-  const testObj = {
+  const [userId, setUserId] = React.useState<number | null>(null);
+  const [loginMessage, setLoginMessage] = React.useState<null | string>(null);
+  const [signupMessage, setSignupMessage] = React.useState<null | string>(null);
+  const [data, setData] = React.useState<{
+    username: string;
+    userId: number;
+    messages: Record<
+      string,
+      { content: string; sentiment: number; createdAt: Date }
+    >;
+  }>({
     username: 'tempyboi',
     userId: 69420,
     messages: {
@@ -54,33 +63,57 @@ const App = () => {
         createdAt: new Date('January 11, 1994'),
       },
     },
-  };
+  });
+
   return (
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/signup">
-            <SignupPage />
-          </Route>
+          <Route
+            path="/signup"
+            render={() => {
+              return isLoggedIn ? (
+                <Redirect to="/main/0" />
+              ) : (
+                <SignupPage
+                  setUserId={setUserId}
+                  setUsername={setUsername}
+                  setIsLoggedIn={setIsLoggedIn}
+                  signupMessage={signupMessage}
+                  setSignupMessage={setSignupMessage}
+                />
+              );
+            }}
+          />
           <Route
             path="/main/:id"
             render={(props: types.responseObj) => (
               <Main
                 {...props}
-                testObj={testObj}
+                userId={userId}
+                username={username}
+                data={data}
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
               />
             )}
           />
-          {/* make this reroute if user logged in for sessions stuff */}
-          <Route path="/">
-            <LoginPage
-              setIsLoggedIn={setIsLoggedIn}
-              setUsername={setUsername}
-              setUserId={setUserId}
-            />
-          </Route>
+          <Route
+            path="/"
+            render={() => {
+              return isLoggedIn ? (
+                <Redirect to="/main/0" />
+              ) : (
+                <LoginPage
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUsername={setUsername}
+                  setUserId={setUserId}
+                  setLoginMessage={setLoginMessage}
+                  loginMessage={loginMessage}
+                />
+              );
+            }}
+          />
         </Switch>
       </div>
     </BrowserRouter>

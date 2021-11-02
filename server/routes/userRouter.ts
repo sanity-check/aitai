@@ -10,7 +10,7 @@ router.post(
   '/signup',
   userController.createUser,
   (req: Request, res: Response) => {
-    res.status(200).json('ya signed up');
+    res.status(200).json(res.locals.userId);
   }
 );
 
