@@ -73,7 +73,11 @@ const userController = (() => {
       const verified = await bcrypt.compare(pass, hashPass);
 
       if (verified) {
+        const { user_id, username } = res.locals.user;
+
         res.locals.verified = true;
+        res.locals.user = { user_id, username };
+
         return next();
       } else {
         res.locals.verified = false;

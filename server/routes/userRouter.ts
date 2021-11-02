@@ -19,9 +19,10 @@ router.post(
   userController.getUser,
   userController.verifyUser,
   (req: Request, res: Response) => {
-    console.log(res.locals.verified);
     if (res.locals.verified) {
-      res.status(200).json({ verified: res.locals.verified });
+      res
+        .status(200)
+        .json({ verified: res.locals.verified, user: res.locals.user });
     } else {
       res.status(400).json({ verified: res.locals.verified });
     }
