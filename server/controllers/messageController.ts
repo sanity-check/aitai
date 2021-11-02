@@ -52,9 +52,6 @@ const messageController = (() => {
       };
       const [result] = await client.analyzeSentiment({ document: document });
       const sentiment = result?.documentSentiment;
-      console.log(`Text: ${req.body.message}`);
-      console.log(`Sentiment score: ${sentiment?.score}`);
-      console.log(`Sentiment magnitude: ${sentiment?.magnitude}`);
       res.locals.userID = userID;
       res.locals.message = message;
       res.locals.emotionalRating = sentiment?.score?.toFixed(2);
