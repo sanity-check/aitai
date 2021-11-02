@@ -51,9 +51,31 @@ const messageController = (() => {
     }
   };
 
+  const deleteMessage = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { messageID, userID } = req.body;
+
+    const sqlQuery = `DELETE FROM messages WHERE message_id=${messageID}`;
+
+    try {
+      await pool.query(sqlQuery);
+      res.locals.userID = userID;
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error in deleteMessage middleware',
+        message: error,
+      });
+    }
+  };
+
   return {
     createMessage,
     getMessages,
+    deleteMessage,
   };
 })();
 

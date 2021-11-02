@@ -79,10 +79,9 @@ const userController = (() => {
         res.locals.user = { user_id, username };
 
         return next();
-      } else {
-        res.locals.verified = false;
-        return next();
       }
+      res.locals.verified = false;
+      return next();
     } catch (error) {
       return next({
         log: 'error in verify user middleware',
