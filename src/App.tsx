@@ -5,6 +5,9 @@ import LoginPage from './LoginPage';
 import Main from './Main';
 import * as types from './types';
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+  const [username, setUsername] = React.useState<string>('');
+  const [userId, setUserId] = React.useState<string>('');
   const testObj = {
     username: 'tempyboi',
     userId: 69420,
@@ -62,11 +65,21 @@ const App = () => {
           <Route
             path="/main/:id"
             render={(props: types.responseObj) => (
-              <Main {...props} testObj={testObj} />
+              <Main
+                {...props}
+                testObj={testObj}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              />
             )}
           />
+          {/* make this reroute if user logged in for sessions stuff */}
           <Route path="/">
-            <LoginPage />
+            <LoginPage
+              setIsLoggedIn={setIsLoggedIn}
+              setUsername={setUsername}
+              setUserId={setUserId}
+            />
           </Route>
         </Switch>
       </div>

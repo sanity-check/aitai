@@ -3,7 +3,7 @@ export type responseObj = JSX.IntrinsicAttributes & {
     username: string;
     userId: number;
     messages: Record<
-      number,
+      string,
       { content: string; sentiment: number; createdAt: Date }
     >;
   };

@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-const LoginPage = () => {
+const LoginPage = (props: {
+  setUserId: (arg: string) => void;
+  setIsLoggedIn: (arg: boolean) => void;
+  setUsername: (arg: string) => void;
+}) => {
   const login = (): void => {
     const username = (
       document.querySelector('#usernameInput') as HTMLInputElement
@@ -8,8 +12,17 @@ const LoginPage = () => {
     const password = (
       document.querySelector('#passwordInput') as HTMLInputElement
     ).value;
-    axios({ url: '/api/login', method: 'post', data: { username, password } });
-    return;
+    axios({
+      url: '/api/user/login',
+      method: 'post',
+      data: { username, password },
+    }).then((response) => {
+      if (response.data.verified) {
+        props.setIsLoggedIn(true);
+        props.setUsername(response.data.user.username);
+        props.setUserId(response.data.user.user_id);
+      }
+    });
   };
   return (
     <div>
