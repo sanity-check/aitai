@@ -1,18 +1,77 @@
-import './app.css';
-import IMAGE from '../assets/dog.png';
-
-export const App = () => {
-  const test = () => {
-    fetch('/api')
-      .then((res) => res.json())
-      .then((stuff) => console.log(stuff));
+import React from 'react';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import SignupPage from './SignupPage';
+import LoginPage from './LoginPage';
+import Main from './Main';
+import * as types from './types';
+const App = () => {
+  const testObj = {
+    username: 'tempyboi',
+    userId: 69420,
+    messages: {
+      1: {
+        content: 'dump ',
+        sentiment: 1.0,
+        createdAt: new Date('August 12 1990'),
+      },
+      13: {
+        content: 'and',
+        sentiment: 1.0,
+        createdAt: new Date('November 3 1991'),
+      },
+      17: {
+        content: 'scrub',
+        sentiment: 1.0,
+        createdAt: new Date('September 17 2021'),
+      },
+      4: {
+        content: 'but',
+        sentiment: 1.0,
+        createdAt: new Date('December 12 2020'),
+      },
+      5: {
+        content: 'also',
+        sentiment: 1.0,
+        createdAt: new Date('June 14 2019'),
+      },
+      8: { content: 'do', sentiment: 1.0, createdAt: new Date('July 7 2018') },
+      11: {
+        content: 'what',
+        sentiment: 1.0,
+        createdAt: new Date('May 29, 1996'),
+      },
+      10: {
+        content: 'you',
+        sentiment: 1.0,
+        createdAt: new Date('May 29, 1969'),
+      },
+      2: {
+        content: 'want',
+        sentiment: 1.0,
+        createdAt: new Date('January 11, 1994'),
+      },
+    },
   };
-
   return (
-    <>
-      <h1 className="test">Fullstack React Typescript</h1>
-      <img src={IMAGE} alt="dog" />
-      <button onClick={test}>Test Me! Look in console!</button>
-    </>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/signup">
+            <SignupPage />
+          </Route>
+          <Route
+            path="/main/:id"
+            render={(props: types.responseObj) => (
+              <Main {...props} testObj={testObj} />
+            )}
+          />
+          <Route path="/">
+            <LoginPage />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 };
+
+export default App;
