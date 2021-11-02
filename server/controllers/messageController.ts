@@ -35,12 +35,11 @@ const messageController = (() => {
     res: Response,
     next: NextFunction
   ) => {
-
     const { userID, message } = req.body;
 
     if (!userID || !message) {
       return next({
-        log: 'no userID or message on req.body in getEmotions middleware'
+        log: 'no userID or message on req.body in getEmotions middleware',
       });
     }
 
@@ -53,9 +52,6 @@ const messageController = (() => {
       };
       const [result] = await client.analyzeSentiment({ document: document });
       const sentiment = result?.documentSentiment;
-      console.log(`Text: ${req.body.message}`);
-      console.log(`Sentiment score: ${sentiment?.score}`);
-      console.log(`Sentiment magnitude: ${sentiment?.magnitude}`);
       res.locals.userID = userID;
       res.locals.message = message;
       res.locals.emotionalRating = sentiment?.score?.toFixed(2);
@@ -75,11 +71,7 @@ const messageController = (() => {
   ) => {
     const { userID, message, emotionalRating } = res.locals;
 
-
     try {
-
-      console.log('userID', userID, 'message', message, 'emotions', emotionalRating);
-
       const sqlQuery = `INSERT INTO messages (user_id, content, emotional_rating, created_at) VALUES (${userID}, '${message}', ${emotionalRating}, '${new Date().toISOString()}')`;
 
       await pool.query(sqlQuery);
