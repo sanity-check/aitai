@@ -20,6 +20,13 @@ router.post(
   }
 );
 
+router.put('/', messageController.getEmotions,
+  messageController.updateMessage,
+  messageController.getMessages,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.messages);
+  })
+
 router.delete(
   '/',
   messageController.deleteMessage,

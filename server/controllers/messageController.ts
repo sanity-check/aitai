@@ -35,12 +35,11 @@ const messageController = (() => {
     res: Response,
     next: NextFunction
   ) => {
-
     const { userID, message } = req.body;
 
     if (!userID || !message) {
       return next({
-        log: 'no userID or message on req.body in getEmotions middleware'
+        log: 'no userID or message on req.body in getEmotions middleware',
       });
     }
 
@@ -75,10 +74,15 @@ const messageController = (() => {
   ) => {
     const { userID, message, emotionalRating } = res.locals;
 
-
     try {
-
-      console.log('userID', userID, 'message', message, 'emotions', emotionalRating);
+      console.log(
+        'userID',
+        userID,
+        'message',
+        message,
+        'emotions',
+        emotionalRating
+      );
 
       const sqlQuery = `INSERT INTO messages (user_id, content, emotional_rating, created_at) VALUES (${userID}, '${message}', ${emotionalRating}, '${new Date().toISOString()}')`;
 
@@ -94,6 +98,11 @@ const messageController = (() => {
       });
     }
   };
+  const updateMessage = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {};
 
   const deleteMessage = async (
     req: Request,
@@ -121,6 +130,7 @@ const messageController = (() => {
     getMessages,
     deleteMessage,
     getEmotions,
+    updateMessage,
   };
 })();
 
