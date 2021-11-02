@@ -13,7 +13,7 @@ CREATE TABLE messages (
   message_id INT GENERATED ALWAYS AS IDENTITY,
   user_id INT,
   content TEXT,
-  emotional_rating INT,
+  emotional_rating FLOAT(2),
   created_at DATE,
   PRIMARY KEY(message_id),
   CONSTRAINT fk_user
