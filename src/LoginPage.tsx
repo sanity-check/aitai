@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 const LoginPage = (props: {
-  setUserId: (arg: string) => void;
+  setUserId: (arg: number) => void;
   setIsLoggedIn: (arg: boolean) => void;
   setUsername: (arg: string) => void;
   setLoginMessage: (arg: string | null) => void;

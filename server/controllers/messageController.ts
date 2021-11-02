@@ -38,6 +38,7 @@ const messageController = (() => {
     const { userID, message } = req.body;
 
     if (!userID || !message) {
+      console.log('no userID or no message');
       return next({
         log: 'no userID or message on req.body in getEmotions middleware',
       });
@@ -57,6 +58,8 @@ const messageController = (() => {
       res.locals.emotionalRating = sentiment?.score?.toFixed(2);
       return next();
     } catch (error) {
+      console.log('google not workingß');
+      console.log(error);
       return next({
         log: 'Error in get emotions middleware',
         message: error,

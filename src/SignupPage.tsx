@@ -4,7 +4,7 @@ const SignupPage = (props: {
   setSignupMessage: (arg: string) => void;
   setIsLoggedIn: (arg: boolean) => void;
   setUsername: (arg: string) => void;
-  setUserId: (arg: string) => void;
+  setUserId: (arg: number) => void;
 }) => {
   const signup = (): void => {
     const username = (
