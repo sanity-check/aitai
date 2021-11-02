@@ -13,8 +13,9 @@ router.get(
 router.post(
   '/',
   messageController.createMessage,
+  messageController.getMessages,
   (req: Request, res: Response) => {
-    res.status(200).json('success!');
+    res.status(200).json(res.locals.messages);
   }
 );
 

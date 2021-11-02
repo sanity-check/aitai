@@ -7,7 +7,7 @@ const messageController = (() => {
     res: Response,
     next: NextFunction
   ) => {
-    const { userID } = req.query;
+    const userID = req.query.userID ? req.query.userID : res.locals.userID;
 
     try {
       const sqlQuery = `SELECT * FROM messages WHERE user_id=${userID}`;
@@ -39,6 +39,8 @@ const messageController = (() => {
       const sqlQuery = `INSERT INTO messages (user_id, content, emotional_rating, created_at) VALUES (${userID}, '${message}', ${emotionalRating}, '${new Date().toISOString()}')`;
 
       await pool.query(sqlQuery);
+
+      res.locals.userID = userID;
 
       return next();
     } catch (error) {
