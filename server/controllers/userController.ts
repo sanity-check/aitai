@@ -16,6 +16,12 @@ const userController = (() => {
       const SQLquery = `INSERT INTO users (username, password, created_at) VALUES ('${username}', '${hashedPass}', '${new Date().toISOString()}');`;
 
       await pool.query(SQLquery);
+
+      const userIdQuery = `SELECT user_id FROM users WHERE username=username`;
+
+      const userId = await pool.query(userIdQuery);
+
+      res.locals.userId = userId;
       return next();
     } catch (error) {
       console.log(error);
