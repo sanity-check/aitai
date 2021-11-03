@@ -37,7 +37,7 @@ const Main = (
   if (Number(id) > 0) {
     return (
       <div>
-        <NavBar {...props} />
+        <NavBar {...props} toggleSideBar={toggleSideBar} />
         <div className="main">
           {sideBarDisplay ? <SideBar {...props} /> : null}
           <MainCard
@@ -58,7 +58,7 @@ const Main = (
   } else {
     return (
       <div>
-        <NavBar {...props} />
+        <NavBar {...props} toggleSideBar={toggleSideBar} />
         <div className="main">
           {sideBarDisplay ? <SideBar {...props} /> : null}
           <EmptyCard userId={props.userId} setData={props.setData} />

@@ -1,1 +1,18 @@
+@use './colors.scss';
 
+.empty-card {
+  width: 20rem;
+  display: flex;
+  height: 13rem;
+  margin: 5rem auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.empty-card-textarea {
+  height: 10rem;
+  width: 20rem;
+  border: none;
+  box-shadow: 5px 5px 0px #707070;
+  background-color: colors.$soft-white;
+}

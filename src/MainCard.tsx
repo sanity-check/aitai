@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import * as React from 'react';
 import axios from 'axios';
+import './mainCard.scss';
 const MainCard = (props: {
   messageId: string;
   content: string;
@@ -32,7 +32,7 @@ const MainCard = (props: {
     const mainCard = document.querySelector('.mainCard');
     const div = document.createElement('div');
     div.className = 'popupDiv';
-    const newInput = document.createElement('input');
+    const newInput = document.createElement('textarea');
     newInput.className = 'newInput';
     const submitBtn = document.createElement('button');
     submitBtn.innerText = 'Submit';
@@ -71,20 +71,38 @@ const MainCard = (props: {
     return;
   };
   return (
-    <div className="mainCard" id={props.messageId}>
-      <Link to="/main/0">
-        <button className="mainCardDelete" onClick={deleteMsg}>
-          X
+    <div className="mainCard main-card" id={props.messageId}>
+      <div>
+        <div>Message</div>
+        <div className="main-card-text">{props.content}</div>
+      </div>
+      <div className="main-card-rating">Rating: {props.emotional_rating}</div>
+      {props.emotional_rating < -0.5 ? (
+        <div>You really shouldn&lsquo;t send this.</div>
+      ) : props.emotional_rating > -0.5 && props.emotional_rating < 0 ? (
+        <div>Ooo. Might wanna think hard about sending this message</div>
+      ) : props.emotional_rating === 0 ? (
+        <div>This is really sober and professional. Seems ok.</div>
+      ) : props.emotional_rating > 0 && props.emotional_rating <= 0.5 ? (
+        <div>A pretty nice message. Go ahead and send it.</div>
+      ) : props.emotional_rating > 0.5 ? (
+        <div>
+          This is really going to brighten someone&lsquo;s day. Fire it off!
+        </div>
+      ) : null}
+      <div className="main-card-buttons">
+        <Link to="/main/0">
+          <button className="mainCardDelete" onClick={deleteMsg}>
+            Delete
+          </button>
+        </Link>
+        <button className="mainCardEdit" onClick={editMsg}>
+          Edit
         </button>
-      </Link>
-      <button className="mainCardEdit" onClick={editMsg}>
-        Edit
-      </button>
+      </div>
       <Link to="/main/0">
-        <button className="mainCardMinimize">-</button>
+        <button className="mainCardMinimize main-card-minimize">Close</button>
       </Link>
-      {props.content}
-      {props.emotional_rating}
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import * as types from './types';
 import { Link } from 'react-router-dom';
 import './navBar.scss';
+import logo from '../assets/logo.png';
 const NavBar = (
   props: types.responseObj & {
     username: string;
     isLoggedIn: boolean;
     setIsLoggedIn: (arg: boolean) => void;
+    toggleSideBar: () => void;
   }
 ) => {
   const logout = () => {
@@ -13,7 +15,9 @@ const NavBar = (
   };
   return (
     <div id="navBar" className="nav-bar">
-      <button className="nav-toggle-button">Toggle Nav</button>
+      <button className="nav-toggle-button" onClick={props.toggleSideBar}>
+        Toggle Nav
+      </button>
       <div className="nav-right">
         <div>
           <div>Hello {props.username}</div>
@@ -25,11 +29,7 @@ const NavBar = (
             <button>Settings</button>
           </div>
         </div>
-        <img
-          className="logo-image"
-          src="https://i.pinimg.com/600x315/a9/bb/59/a9bb59a0bf9fd472097c50d30c028086.jpg"
-          alt="AITAI Brain Logo"
-        />
+        <img className="logo-image" src={logo} alt="AITAI Brain Logo" />
       </div>
     </div>
   );

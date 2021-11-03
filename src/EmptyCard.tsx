@@ -26,7 +26,7 @@ const EmptyCard = (props: {
   };
   return (
     <div className="emptyCard empty-card">
-      <input className="emptyCardInput"></input>
+      <textarea className="emptyCardInput empty-card-textarea"></textarea>
       <button className="emptyCardSubmit" onClick={submitNewMsg}>
         Submit
       </button>
