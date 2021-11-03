@@ -1,4 +1,5 @@
 import axios from 'axios';
+import './loginPage.scss';
 const SignupPage = (props: {
   signupMessage: string | null;
   setSignupMessage: (arg: string) => void;
@@ -47,27 +48,24 @@ const SignupPage = (props: {
     }
   };
   return (
-    <div>
-      <label htmlFor="username">
-        username:{' '}
-        <input
-          type="text"
-          id="usernameInput"
-          onChange={(event) => {
-            event.currentTarget.style.border = '1px solid black';
-          }}
-        ></input>
-      </label>
-      <label htmlFor="password">
-        password:{' '}
-        <input
-          type="password"
-          id="passwordInput"
-          onChange={(event) => {
-            event.currentTarget.style.border = '1px solid black';
-          }}
-        ></input>
-      </label>
+    <div className="login-signup-container">
+      <input
+        placeholder="username"
+        type="text"
+        id="usernameInput"
+        onChange={(event) => {
+          event.currentTarget.style.border = '1px solid black';
+        }}
+      ></input>
+
+      <input
+        placeholder="password"
+        type="password"
+        id="passwordInput"
+        onChange={(event) => {
+          event.currentTarget.style.border = '1px solid black';
+        }}
+      ></input>
       <button id="loginButton" onClick={signup}>
         Signup
       </button>

@@ -1,0 +1,54 @@
+@use './colors.scss';
+
+.main-card {
+  width: 50vw;
+  display: flex;
+  min-height: 35vh;
+  max-height: 45vh;
+  margin: 5rem auto;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  box-shadow: 6px 6px 0px #bebebe, -6px -6px 0px #ffffff;
+  position: relative;
+  button {
+    background-color: colors.$tertiary;
+    width: 8rem;
+  }
+}
+
+.main-card-text {
+  font-size: 2rem;
+  width: 100%;
+}
+
+.main-card-rating {
+  font-size: 1.5rem;
+}
+
+.main-card-minimize {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 4rem !important;
+}
+
+.main-card-buttons {
+  display: flex;
+  width: 20rem;
+  justify-content: space-around;
+}
+
+.popupDiv {
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.newInput {
+  height: 5rem;
+  width: 15rem;
+}

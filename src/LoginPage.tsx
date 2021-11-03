@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './loginPage.scss';
 const LoginPage = (props: {
   setUserId: (arg: number) => void;
   setIsLoggedIn: (arg: boolean) => void;
@@ -70,27 +71,24 @@ const LoginPage = (props: {
     }
   };
   return (
-    <div>
-      <label htmlFor="username">
-        username:{' '}
-        <input
-          type="text"
-          id="usernameInput"
-          onChange={(event) => {
-            event.currentTarget.style.border = '1px solid black';
-          }}
-        ></input>
-      </label>
-      <label htmlFor="password">
-        password:{' '}
-        <input
-          type="password"
-          id="passwordInput"
-          onChange={(event) => {
-            event.currentTarget.style.border = '1px solid black';
-          }}
-        ></input>
-      </label>
+    <div className="login-signup-container">
+      <input
+        type="text"
+        id="usernameInput"
+        placeholder="username"
+        onChange={(event) => {
+          event.currentTarget.style.border = '1px solid black';
+        }}
+      ></input>
+
+      <input
+        type="password"
+        id="passwordInput"
+        placeholder="password"
+        onChange={(event) => {
+          event.currentTarget.style.border = '1px solid black';
+        }}
+      ></input>
 
       <button id="loginButton" onClick={login}>
         Login
@@ -99,7 +97,7 @@ const LoginPage = (props: {
       <Link to="/signup">
         <button id="signUpButton">Sign Up Now</button>
       </Link>
-      {<p>{props.loginMessage}</p>}
+      {props.loginMessage ? <p>{props.loginMessage}</p> : null}
     </div>
   );
 };

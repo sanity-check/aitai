@@ -1,0 +1,27 @@
+@use './colors.scss';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: colors.$primary;
+  font-family: 'Raleway', sans-serif;
+  overflow-y: hidden;
+}
+
+button {
+  font-family: 'Raleway', sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow: 5px 5px 0px #707070;
+}
+
+button:hover {
+  background-color: colors.$accent;
+}
+
+input {
+  border: none;
+  border-radius: 2px;
+}
