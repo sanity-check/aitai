@@ -3,7 +3,8 @@ import userController from '../controllers/userController';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.status(200).json('hello from userRouter');
+  console.log('userRouter home route');
+  res.status(200).json({ hello: 'hello from userRouter' });
 });
 
 router.post(
