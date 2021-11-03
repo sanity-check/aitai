@@ -1,10 +1,9 @@
 export type responseObj = JSX.IntrinsicAttributes & {
   data: {
-    username: string;
-    userId: number;
-    messages: Record<
-      string,
-      { content: string; sentiment: number; createdAt: Date }
-    >;
-  };
+    user_id: number;
+    message_id: number;
+    content: string;
+    emotional_rating: number;
+    created_at: Date;
+  }[];
 };

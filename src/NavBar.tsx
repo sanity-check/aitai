@@ -7,10 +7,6 @@ const NavBar = (
     setIsLoggedIn: (arg: boolean) => void;
   }
 ) => {
-  //welcome message
-  //user profile
-  //drop down -> Dark mode
-  //styling/logos
   const logout = () => {
     props.setIsLoggedIn(false);
   };

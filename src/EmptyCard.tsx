@@ -1,5 +1,17 @@
 import axios from 'axios';
-const EmptyCard = (props: { userId: number | null }) => {
+import Link from 'react-router-dom';
+const EmptyCard = (props: {
+  userId: number | null;
+  setData: (
+    arg: {
+      user_id: number;
+      message_id: number;
+      content: string;
+      emotional_rating: number;
+      created_at: Date;
+    }[]
+  ) => void;
+}) => {
   const submitNewMsg = (): void => {
     const emptyCardInput = document.querySelector(
       '.emptyCardInput'
@@ -8,6 +20,8 @@ const EmptyCard = (props: { userId: number | null }) => {
       method: 'post',
       url: '/api/message',
       data: { message: emptyCardInput?.value, userID: props.userId },
+    }).then((response) => {
+      props.setData(response.data);
     });
   };
   return (

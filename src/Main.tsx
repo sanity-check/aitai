@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import React from 'react';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 import MainCard from './MainCard';
@@ -10,6 +11,15 @@ const Main = (
     isLoggedIn: boolean;
     setIsLoggedIn: (arg: boolean) => void;
     userId: number | null;
+    setData: (
+      arg: {
+        user_id: number;
+        message_id: number;
+        content: string;
+        emotional_rating: number;
+        created_at: Date;
+      }[]
+    ) => void;
   }
 ) => {
   console.log(props.userId);
@@ -22,8 +32,14 @@ const Main = (
         <MainCard
           messageId={id}
           userId={props.userId}
-          content={props.data.messages[id].content}
-          sentiment={props.data.messages[id].sentiment}
+          content={
+            props.data.filter((el) => el.message_id === Number(id))[0].content
+          }
+          emotional_rating={
+            props.data.filter((el) => el.message_id === Number(id))[0]
+              .emotional_rating
+          }
+          setData={props.setData}
         />
       </div>
     );
@@ -32,7 +48,7 @@ const Main = (
       <div>
         <NavBar {...props} />
         <SideBar {...props} />
-        <EmptyCard userId={props.userId} />
+        <EmptyCard userId={props.userId} setData={props.setData} />
       </div>
     );
   }

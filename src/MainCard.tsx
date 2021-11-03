@@ -4,18 +4,27 @@ import axios from 'axios';
 const MainCard = (props: {
   messageId: string;
   content: string;
-  sentiment: number;
+  emotional_rating: number;
   userId: number | null;
+  setData: (
+    arg: {
+      user_id: number;
+      message_id: number;
+      content: string;
+      emotional_rating: number;
+      created_at: Date;
+    }[]
+  ) => void;
 }) => {
-  const deleteMsg = (event: React.MouseEvent): void => {
-    const button = event.target as HTMLButtonElement;
-    if (button.parentElement) {
-      axios({
-        method: 'delete',
-        url: '/api/messages',
-        data: { messageId: button.parentElement.id, userId: props.userId },
-      });
-    }
+  const deleteMsg = (): void => {
+    axios({
+      method: 'delete',
+      url: '/api/message',
+      data: { messageID: props.messageId, userID: props.userId },
+    }).then((response) => {
+      props.setData(response.data);
+    });
+
     return;
   };
   const editMsg = (): void => {
@@ -34,11 +43,14 @@ const MainCard = (props: {
       if (newInputField) {
         axios({
           method: 'put',
-          url: '/api/messages',
+          url: '/api/message',
           data: {
-            newMsgContent: newInputField.value,
-            messageId: props.messageId,
+            message: newInputField.value,
+            messageID: props.messageId,
+            userID: props.userId,
           },
+        }).then((response) => {
+          props.setData(response.data);
         });
       }
     });
@@ -60,9 +72,11 @@ const MainCard = (props: {
   };
   return (
     <div className="mainCard" id={props.messageId}>
-      <button className="mainCardDelete" onClick={deleteMsg}>
-        X
-      </button>
+      <Link to="/main/0">
+        <button className="mainCardDelete" onClick={deleteMsg}>
+          X
+        </button>
+      </Link>
       <button className="mainCardEdit" onClick={editMsg}>
         Edit
       </button>
@@ -70,7 +84,7 @@ const MainCard = (props: {
         <button className="mainCardMinimize">-</button>
       </Link>
       {props.content}
-      {props.sentiment}
+      {props.emotional_rating}
     </div>
   );
 };
