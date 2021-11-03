@@ -1,0 +1,33 @@
+@use './colors.scss';
+
+.nav-bar {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: colors.$secondary;
+  height: 4rem;
+}
+
+.nav-right {
+  width: 18rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-buttons {
+  display: flex;
+  width: 13rem;
+  justify-content: space-between;
+}
+
+.nav-toggle-button {
+  display: block;
+  margin-left: 1rem;
+}
+
+.logo-image {
+  height: 2rem;
+}

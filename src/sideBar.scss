@@ -1,0 +1,12 @@
+@use './colors.scss';
+
+.side-bar-container {
+}
+
+.side-bar {
+  height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  background-color: colors.$tertiary;
+  width: 15rem;
+}

@@ -7,7 +7,7 @@ import * as types from './types';
 import './app.scss';
 import { Logo } from './Logo';
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(true);
   const [username, setUsername] = React.useState<string>('');
   const [userId, setUserId] = React.useState<number | null>(null);
   const [loginMessage, setLoginMessage] = React.useState<null | string>(null);

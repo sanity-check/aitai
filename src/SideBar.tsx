@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './sideBar.scss';
 
 import * as types from './types';
 const SideBar = (props: types.responseObj) => {
@@ -13,6 +14,6 @@ const SideBar = (props: types.responseObj) => {
       </Link>
     );
   });
-  return <div>{messageArr}</div>;
+  return <div className="side-bar">{messageArr}</div>;
 };
 export default SideBar;
