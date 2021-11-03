@@ -11,6 +11,15 @@ const Main = (
     isLoggedIn: boolean;
     setIsLoggedIn: (arg: boolean) => void;
     userId: number | null;
+    setData: (
+      arg: {
+        user_id: number;
+        message_id: number;
+        content: string;
+        emotional_rating: number;
+        created_at: Date;
+      }[]
+    ) => void;
   }
 ) => {
   console.log(props.userId);
@@ -30,6 +39,7 @@ const Main = (
             props.data.filter((el) => el.message_id === Number(id))[0]
               .emotional_rating
           }
+          setData={props.setData}
         />
       </div>
     );
@@ -38,7 +48,7 @@ const Main = (
       <div>
         <NavBar {...props} />
         <SideBar {...props} />
-        <EmptyCard userId={props.userId} />
+        <EmptyCard userId={props.userId} setData={props.setData} />
       </div>
     );
   }

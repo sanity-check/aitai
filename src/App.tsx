@@ -45,6 +45,7 @@ const App = () => {
             render={(props: types.responseObj) => (
               <Main
                 {...props}
+                setData={setData}
                 userId={userId}
                 username={username}
                 data={data}

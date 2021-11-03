@@ -6,16 +6,25 @@ const MainCard = (props: {
   content: string;
   emotional_rating: number;
   userId: number | null;
+  setData: (
+    arg: {
+      user_id: number;
+      message_id: number;
+      content: string;
+      emotional_rating: number;
+      created_at: Date;
+    }[]
+  ) => void;
 }) => {
-  const deleteMsg = (event: React.MouseEvent): void => {
-    const button = event.target as HTMLButtonElement;
-    if (button.parentElement) {
-      axios({
-        method: 'delete',
-        url: '/api/message',
-        data: { messageID: button.parentElement.id, userID: props.userId },
-      });
-    }
+  const deleteMsg = (): void => {
+    axios({
+      method: 'delete',
+      url: '/api/message',
+      data: { messageID: props.messageId, userID: props.userId },
+    }).then((response) => {
+      props.setData(response.data);
+    });
+
     return;
   };
   const editMsg = (): void => {
@@ -40,6 +49,8 @@ const MainCard = (props: {
             messageID: props.messageId,
             userID: props.userId,
           },
+        }).then((response) => {
+          props.setData(response.data);
         });
       }
     });
@@ -61,9 +72,11 @@ const MainCard = (props: {
   };
   return (
     <div className="mainCard" id={props.messageId}>
-      <button className="mainCardDelete" onClick={deleteMsg}>
-        X
-      </button>
+      <Link to="/main/0">
+        <button className="mainCardDelete" onClick={deleteMsg}>
+          X
+        </button>
+      </Link>
       <button className="mainCardEdit" onClick={editMsg}>
         Edit
       </button>
