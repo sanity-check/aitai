@@ -4,6 +4,8 @@ import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
 import Main from './Main';
 import * as types from './types';
+import './app.scss';
+import { Logo } from './Logo';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
   const [username, setUsername] = React.useState<string>('');
@@ -30,13 +32,16 @@ const App = () => {
               return isLoggedIn ? (
                 <Redirect to="/main/0" />
               ) : (
-                <SignupPage
-                  setUserId={setUserId}
-                  setUsername={setUsername}
-                  setIsLoggedIn={setIsLoggedIn}
-                  signupMessage={signupMessage}
-                  setSignupMessage={setSignupMessage}
-                />
+                <>
+                  <Logo />
+                  <SignupPage
+                    setUserId={setUserId}
+                    setUsername={setUsername}
+                    setIsLoggedIn={setIsLoggedIn}
+                    signupMessage={signupMessage}
+                    setSignupMessage={setSignupMessage}
+                  />
+                </>
               );
             }}
           />
@@ -60,14 +65,17 @@ const App = () => {
               return isLoggedIn ? (
                 <Redirect to="/main/0" />
               ) : (
-                <LoginPage
-                  setData={setData}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setUsername={setUsername}
-                  setUserId={setUserId}
-                  setLoginMessage={setLoginMessage}
-                  loginMessage={loginMessage}
-                />
+                <>
+                  <Logo />
+                  <LoginPage
+                    setData={setData}
+                    setIsLoggedIn={setIsLoggedIn}
+                    setUsername={setUsername}
+                    setUserId={setUserId}
+                    setLoginMessage={setLoginMessage}
+                    loginMessage={loginMessage}
+                  />
+                </>
               );
             }}
           />
