@@ -73,6 +73,15 @@ const messageController = (() => {
     const { userID, message, emotionalRating } = res.locals;
 
     try {
+      console.log(
+        'userID',
+        userID,
+        'message',
+        message,
+        'emotions',
+        emotionalRating
+      );
+
       const sqlQuery = `INSERT INTO messages (user_id, content, emotional_rating, created_at) VALUES (${userID}, '${message}', ${emotionalRating}, '${new Date().toISOString()}')`;
 
       await pool.query(sqlQuery);
@@ -84,6 +93,35 @@ const messageController = (() => {
       console.log(error);
       return next({
         log: 'Error in createMessage middleware',
+        message: error,
+      });
+    }
+  };
+  const updateMessage = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { messageID, message, userID } = req.body;
+    const { emotionalRating } = res.locals;
+    console.log(
+      'message',
+      message,
+      'emotional rating',
+      emotionalRating,
+      'messageID',
+      messageID
+    );
+    const sqlUpdate = `UPDATE messages SET content = '${message}', emotional_rating = '${emotionalRating}' WHERE message_id=${messageID}`;
+
+    try {
+      await pool.query(sqlUpdate);
+      res.locals.userID = userID;
+
+      return next();
+    } catch (error) {
+      return next({
+        log: 'error in update message middleware',
         message: error,
       });
     }
@@ -115,6 +153,7 @@ const messageController = (() => {
     getMessages,
     deleteMessage,
     getEmotions,
+    updateMessage,
   };
 })();
 
