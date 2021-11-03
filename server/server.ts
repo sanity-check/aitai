@@ -12,6 +12,11 @@ const app: Application = express();
 
 const PORT = 3000;
 app.use(express.json());
+// app.use(
+//   express.urlencoded({
+//     extended: true,
+//   })
+// );
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
 app.get('/', (req: Request, res: Response) => {
@@ -42,6 +47,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+export default app;
