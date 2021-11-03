@@ -26,6 +26,7 @@ const EmptyCard = (props: {
   };
   return (
     <div className="emptyCard empty-card">
+      <div className="ready">Ready to test a message?</div>
       <textarea className="emptyCardInput empty-card-textarea"></textarea>
       <button className="emptyCardSubmit" onClick={submitNewMsg}>
         Submit

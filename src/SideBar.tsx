@@ -10,7 +10,7 @@ const SideBar = (props: types.responseObj) => {
     //this can wait, consult with group
     messageArr.push(
       <Link to={`/main/${el.message_id}`}>
-        <div>{el.content}</div>
+        <div className="side-bar-item">{el.content}</div>
       </Link>
     );
   });
