@@ -1,5 +1,5 @@
 export type responseObj = JSX.IntrinsicAttributes & {
-  testObj: {
+  data: {
     username: string;
     userId: number;
     messages: Record<

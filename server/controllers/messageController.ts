@@ -38,6 +38,7 @@ const messageController = (() => {
     const { userID, message } = req.body;
 
     if (!userID || !message) {
+      console.log('no userID or no message');
       return next({
         log: 'no userID or message on req.body in getEmotions middleware',
       });
@@ -57,6 +58,8 @@ const messageController = (() => {
       res.locals.emotionalRating = sentiment?.score?.toFixed(2);
       return next();
     } catch (error) {
+      console.log('google not workingß');
+      console.log(error);
       return next({
         log: 'Error in get emotions middleware',
         message: error,
@@ -99,7 +102,31 @@ const messageController = (() => {
     req: Request,
     res: Response,
     next: NextFunction
-  ) => {};
+  ) => {
+    const { messageID, message, userID } = req.body;
+    const { emotionalRating } = res.locals;
+    console.log(
+      'message',
+      message,
+      'emotional rating',
+      emotionalRating,
+      'messageID',
+      messageID
+    );
+    const sqlUpdate = `UPDATE messages SET content = '${message}', emotional_rating = '${emotionalRating}' WHERE message_id=${messageID}`;
+
+    try {
+      await pool.query(sqlUpdate);
+      res.locals.userID = userID;
+
+      return next();
+    } catch (error) {
+      return next({
+        log: 'error in update message middleware',
+        message: error,
+      });
+    }
+  };
 
   const deleteMessage = async (
     req: Request,

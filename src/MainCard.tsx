@@ -5,7 +5,7 @@ const MainCard = (props: {
   messageId: string;
   content: string;
   sentiment: number;
-  userId: number;
+  userId: number | null;
 }) => {
   const deleteMsg = (event: React.MouseEvent): void => {
     const button = event.target as HTMLButtonElement;
