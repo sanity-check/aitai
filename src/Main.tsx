@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom';
-import React from 'react';
+import { useParams, Redirect } from 'react-router-dom';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 import MainCard from './MainCard';
@@ -22,8 +21,10 @@ const Main = (
     ) => void;
   }
 ) => {
-  console.log(props.userId);
   const { id } = useParams();
+  if (!props.isLoggedIn) {
+    return <Redirect to="/" />;
+  }
   if (Number(id) > 0) {
     return (
       <div>
