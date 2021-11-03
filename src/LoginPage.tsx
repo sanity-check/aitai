@@ -6,6 +6,7 @@ const LoginPage = (props: {
   setUsername: (arg: string) => void;
   setLoginMessage: (arg: string | null) => void;
   loginMessage: string | null;
+  setData: (arg: []) => void;
 }) => {
   const login = (): void => {
     const username = (
@@ -36,10 +37,26 @@ const LoginPage = (props: {
       })
         .then((response) => {
           if (response.data.verified) {
-            props.setIsLoggedIn(true);
+            // props.setIsLoggedIn(true);
             props.setUsername(response.data.user.username);
             props.setUserId(response.data.user.user_id);
-            console.log('user logged in');
+
+            axios({
+              method: 'get',
+              url: `/api/message?userID=${response.data.user.user_id}`,
+            })
+              .then((innerResponse) => {
+                props.setData(
+                  innerResponse.data.sort(
+                    (a: { created_at: Date }, b: { created_at: Date }) =>
+                      new Date(a.created_at).getTime() -
+                      new Date(b.created_at).getTime()
+                  )
+                );
+              })
+              .then(() => {
+                props.setIsLoggedIn(true);
+              });
           }
         })
         .catch(() => {

@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import React from 'react';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 import MainCard from './MainCard';
@@ -22,8 +23,13 @@ const Main = (
         <MainCard
           messageId={id}
           userId={props.userId}
-          content={props.data.messages[id].content}
-          sentiment={props.data.messages[id].sentiment}
+          content={
+            props.data.filter((el) => el.message_id === Number(id))[0].content
+          }
+          emotional_rating={
+            props.data.filter((el) => el.message_id === Number(id))[0]
+              .emotional_rating
+          }
         />
       </div>
     );

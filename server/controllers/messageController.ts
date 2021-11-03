@@ -58,8 +58,6 @@ const messageController = (() => {
       res.locals.emotionalRating = sentiment?.score?.toFixed(2);
       return next();
     } catch (error) {
-      console.log('google not workingß');
-      console.log(error);
       return next({
         log: 'Error in get emotions middleware',
         message: error,
@@ -83,6 +81,7 @@ const messageController = (() => {
 
       return next();
     } catch (error) {
+      console.log(error);
       return next({
         log: 'Error in createMessage middleware',
         message: error,

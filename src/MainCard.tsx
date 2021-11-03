@@ -4,7 +4,7 @@ import axios from 'axios';
 const MainCard = (props: {
   messageId: string;
   content: string;
-  sentiment: number;
+  emotional_rating: number;
   userId: number | null;
 }) => {
   const deleteMsg = (event: React.MouseEvent): void => {
@@ -12,8 +12,8 @@ const MainCard = (props: {
     if (button.parentElement) {
       axios({
         method: 'delete',
-        url: '/api/messages',
-        data: { messageId: button.parentElement.id, userId: props.userId },
+        url: '/api/message',
+        data: { messageID: button.parentElement.id, userID: props.userId },
       });
     }
     return;
@@ -34,10 +34,11 @@ const MainCard = (props: {
       if (newInputField) {
         axios({
           method: 'put',
-          url: '/api/messages',
+          url: '/api/message',
           data: {
-            newMsgContent: newInputField.value,
-            messageId: props.messageId,
+            message: newInputField.value,
+            messageID: props.messageId,
+            userID: props.userId,
           },
         });
       }
@@ -70,7 +71,7 @@ const MainCard = (props: {
         <button className="mainCardMinimize">-</button>
       </Link>
       {props.content}
-      {props.sentiment}
+      {props.emotional_rating}
     </div>
   );
 };
