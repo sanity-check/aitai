@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Link from 'react-router-dom';
+import './emptyCard.scss';
 const EmptyCard = (props: {
   userId: number | null;
   setData: (
@@ -25,8 +25,9 @@ const EmptyCard = (props: {
     });
   };
   return (
-    <div className="emptyCard">
-      <input className="emptyCardInput"></input>
+    <div className="emptyCard empty-card">
+      <div className="ready">Ready to test a message?</div>
+      <textarea className="emptyCardInput empty-card-textarea"></textarea>
       <button className="emptyCardSubmit" onClick={submitNewMsg}>
         Submit
       </button>

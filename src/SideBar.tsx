@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './sideBar.scss';
 
 import * as types from './types';
 const SideBar = (props: types.responseObj) => {
@@ -9,10 +10,10 @@ const SideBar = (props: types.responseObj) => {
     //this can wait, consult with group
     messageArr.push(
       <Link to={`/main/${el.message_id}`}>
-        <div>{el.content}</div>
+        <div className="side-bar-item">{el.content}</div>
       </Link>
     );
   });
-  return <div>{messageArr}</div>;
+  return <div className="side-bar">{messageArr}</div>;
 };
 export default SideBar;

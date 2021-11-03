@@ -1,0 +1,23 @@
+@use './colors.scss';
+
+.side-bar {
+  height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  background-color: colors.$tertiary;
+  width: 15rem;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.side-bar-item {
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.side-bar-item:hover {
+  background-color: colors.$accent;
+}
