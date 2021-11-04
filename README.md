@@ -5,7 +5,7 @@ An easy to use app that allows you to check the positivity or negativity of a me
 
 # How to Use
 
-Simply head over to http://www.saamsa.io:3000 to see the app in action! 
+Simply head over to http://saamsa.io:3000 to see the app in action! 
 
 You must create an account first so that your previous messages are stored in our SQL database. Your sensitive information is prehashed before it hits our database!
 
