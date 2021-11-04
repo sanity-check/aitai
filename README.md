@@ -14,3 +14,4 @@ After signing up or logging in, you can then create new messages, which then be 
 The longer the sample of text, the more accurate the model is. The score ranges from -1 to 1, -1 being very negative, and 1 being very positive.
 
 You can also edit, delete any of your old messages, by using the corresponding buttons after clicking on a message, as well!
+
