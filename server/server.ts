@@ -12,16 +12,15 @@ const app: Application = express();
 
 const PORT = 3000;
 app.use(express.json());
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-app.get('/', (req: Request, res: Response) => {
-  console.log('pinged server');
-  res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
-});
+app.use('/', express.static(path.join(__dirname, '../build')));
 
 app.use('/api/user', userRouter);
 app.use('/api/message', messageRouter);
 
+// app.get('/', (req: Request, res: Response) => {
+//   console.log('pinged server');
+//   res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
+// });
 app.get('*', (req: Request, res: Response) => {
   res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
 });
