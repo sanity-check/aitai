@@ -32,6 +32,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     status: 400,
     message: { err: 'error occurred' },
   };
+  console.log('global', err);
   const errorObj = {
     ...defaultErr,
     log: err.log,
