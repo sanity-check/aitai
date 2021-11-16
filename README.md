@@ -15,4 +15,3 @@ The longer the sample of text, the more accurate the model is. The score ranges 
 
 You can also edit, delete any of your old messages, by using the corresponding buttons after clicking on a message, as well!
 
-
